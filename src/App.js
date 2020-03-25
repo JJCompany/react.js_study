@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import TOC from './components/TOC';
+import Subject from './components/Subject';
+import Content from './components/Content';
 import './App.css';
 
 /* 
@@ -6,41 +9,12 @@ import './App.css';
     jsx로 작성을 하면 create-react-app이 컨버팅을 해준다.
     React는 코드를 정리해주는 역할도 같이 해준다. -> 복잡도를 획기적으로 낮추었다.
 */
-class Subject extends Component{
-    render(){//render 함수
-        return(
-            <header>
-                <h1>{this.props.title}</h1>
-                {this.props.sub}
-            </header>
-        );
-    }
-}
 
-//table of contents
-class TOC extends Component{
-    render(){
-        return(
-            <nav>
-                <ul>
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                </ul>
-            </nav>
-        );
-    }
-}
-class Content extends Component{
-    render(){
-        return(
-            <article>
-                <h2>{this.props.title}</h2>
-                {this.props.desc}
-            </article>
-        );
-    }
-}
-
+/*
+    Component 외부 정보는 Props라고 한다.
+    Component 내부 정보를 State라고 한다.
+    
+*/
 
 class App extends Component{
     render(){
