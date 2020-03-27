@@ -11,10 +11,14 @@ class TOC extends Component{
             <li key={data[i].id}>
                 <a 
                     href={"/content/"+data[i].id}
-                    onClick={function(e){
+                    data-id={data[i].id}
+                    onClick={function(id,e){
+                        //e.target.dateset.id
+                        //debugger;
                         e.preventDefault();
-                        this.props.onChangePage();
-                    }.bind(this)}
+                        //this.props.onChangePage(e.target.dataset.id);
+                        this.props.onChangePage(id);
+                    }.bind(this,data[i].id)}//값을 전달하는 방법은 두가지가 있으며, bind의 매개변수를 통해 넘기는 방법으로 구현
                 >{data[i].title}</a>
             </li>);
             i++;
