@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC';
 import Subject from './components/Subject';
-import Content from './components/Content';
+import ReadContent from './components/ReadContent';
+import CreateContent from './components/CreateContent';
 import Control from './components/Control';
 import './App.css';
 
@@ -31,7 +32,8 @@ class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            mode:'read',
+            //mode:'read',
+            mode:'create',
             selected_content_id:1,
             subject:{title:'WEB', sub:'World Wide Web'},
             welcome:{title:'Welcome',desc:"Hello, React!"},
@@ -43,10 +45,11 @@ class App extends Component{
         }
     }
     render(){
-        var _title, _desc = null;
+        var _title, _desc, _article = null;
         if(this.state.mode === 'welcome'){
             _title = this.state.welcome.title;
             _desc = this.state.welcome.desc;
+            _article = <ReadContent title={_title} desc={_desc}></ReadContent>
         }
         else if(this.state.mode === 'read'){
 
@@ -62,7 +65,15 @@ class App extends Component{
                 }
                 i = i + 1;
             }
+            _article = <ReadContent title={_title} desc={_desc}></ReadContent>
         }
+        else if(this.state.mode === 'create'){
+            _article = <CreateContent onSubmit={function(_title,_desc){
+                //add content
+                console.log(_title+' '+_desc);
+            }.bind(this)}></CreateContent>
+        }
+        //create Component를 넣는 방법...?
         return(
             <div className="App">
                 <Subject 
@@ -85,14 +96,16 @@ class App extends Component{
                     data={this.state.toc}//props이다.(리스트를 뿌려주기 위해서 만들어짐)
                 >
                 </TOC>
-                <Control 
+                <Control
                     onChangeMode = {function(_mode){
                         this.setState({
                             mode:_mode
                         });
+                        //mode에 따라서 Content가 바뀌게 하는 작업 추가 예정
                     }.bind(this)}
                 ></Control>
-                <Content title={_title} desc={_desc}></Content>
+                {_article}
+                
             </div>
         );
     }
